@@ -72,6 +72,7 @@ function getJSON(url) {
     });
 }
 
+console.log((new Date()).toUTCString());
 
 Promise.all(_.range(MAX_PAGE).map(function (item, index) {
     return getPageUrl(index);

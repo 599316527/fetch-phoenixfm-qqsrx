@@ -5,11 +5,11 @@
         <copyright>Copyright © ${year} 凤凰卫视</copyright>
         <language>zh-cn</language>
         <link>https://hk1229.cn/demo/phoenixtv/</link>
-        <title>${pfind.pname}</title>
+        <title>${pfind.pname} 🎉</title>
         <itunes:keywords>凤凰卫视</itunes:keywords>
         <itunes:author>Kyle He</itunes:author>
         <itunes:subtitle>${pfind.pname}</itunes:subtitle>
-        <!-- import: summary -->
+        <!-- use: summary(text=${pfind.info}) -->
         <description>${pfind.info}</description>
         <itunes:image href="${pfind.img}" />
         <itunes:keywords>凤凰卫视 ${pfind.pname} ${pfind.compere}</itunes:keywords>
@@ -29,10 +29,13 @@
 
 <!-- target: summary -->
 <itunes:summary><![CDATA[
-    <p>Feedback 👉
-        🌀Weibo: <a href="http://weibo.com/327303000" target="_blank">@_何凯_</a>
-        🐦Twitter: <a href="https://twitter.com/kyleehee" target="_blank">@kyleehee</a>
-    </p>
+<!-- if: ${text} -->
+<p>${text}</p>
+<!-- /if -->
+<p>Feedback 👉
+🌀Weibo: <a href="http://weibo.com/327303000" target="_blank">@_何凯_</a>
+🐦Twitter: <a href="https://twitter.com/kyleehee" target="_blank">@kyleehee</a>
+</p>
 ]]></itunes:summary>
 <!-- /target -->
 
