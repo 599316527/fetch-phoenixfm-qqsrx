@@ -5,9 +5,10 @@ var fs = require('fs');
 var etpl = require('etpl');
 etpl.addFilter('utc-date', require('./etpl-filter-utc-date'));
 
-const LIST_URL = 'http://diantai.ifeng.com/index.php/home/getProgramItemList';
-const ITEM_URL = 'http://diantai.ifeng.com/index.php/audio/GetAudioFind';
-const RSS_TPL = './rss.tpl';
+const REMOTE_LIST_URL = 'http://diantai.ifeng.com/index.php/home/getProgramItemList';
+const REMOTE_ITEM_URL = 'http://diantai.ifeng.com/index.php/audio/GetAudioFind';
+
+const RSS_TPL_PATH = './rss.etpl';
 const RSS_SAVE_PATH = './feed.xml';
 
 const MAX_PAGE = 1;
@@ -28,7 +29,7 @@ function getQueryString(params) {
 }
 
 function getPageUrl(page) {
-    return LIST_URL + '?' + getQueryString({
+    return REMOTE_LIST_URL + '?' + getQueryString({
         fid: FID,
         pid: PID,
         page: page,
@@ -37,7 +38,7 @@ function getPageUrl(page) {
 }
 
 function getItemUrl(rid) {
-    return ITEM_URL + '?' + getQueryString({
+    return REMOTE_ITEM_URL + '?' + getQueryString({
         fid: FID,
         pid: PID,
         rid: rid
@@ -99,7 +100,7 @@ Promise.all(_.range(MAX_PAGE).map(function (item, index) {
     // 渲染 rss 模板
     data.year = (new Date()).getUTCFullYear();
     return new Promise(function (resolve, reject) {
-        fs.readFile(RSS_TPL, {
+        fs.readFile(RSS_TPL_PATH, {
             encoding: 'utf-8',
             flag: 'r'
         }, function (err, tpl) {
@@ -125,7 +126,7 @@ Promise.all(_.range(MAX_PAGE).map(function (item, index) {
     console.log(msg);
 }).catch(function (err) {
     console.log('出错啦！');
-    console.error(err);
+    throw err;
 });
 
 

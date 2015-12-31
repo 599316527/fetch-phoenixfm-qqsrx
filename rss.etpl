@@ -12,7 +12,7 @@
         <!-- import: summary -->
         <description>${pfind.info}</description>
         <itunes:image href="${pfind.img}" />
-        <itunes:keywords>凤凰卫视 <?php echo $pfind.pname ?> <?php echo $pfind.compere ?></itunes:keywords>
+        <itunes:keywords>凤凰卫视 ${pfind.pname} ${pfind.compere}</itunes:keywords>
         <itunes:owner>
             <itunes:name>Kyle He</itunes:name>
             <itunes:email>ohyes@hk1229.cn</itunes:email>
@@ -27,7 +27,7 @@
     </channel>
 </rss>
 
-<!-- target: summary) -->
+<!-- target: summary -->
 <itunes:summary><![CDATA[
     <p>Feedback 👉
         🌀Weibo: <a href="http://weibo.com/327303000" target="_blank">@_何凯_</a>
