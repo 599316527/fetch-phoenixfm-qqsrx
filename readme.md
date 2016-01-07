@@ -6,10 +6,8 @@
 ## Usage
 
 ```bash
-node index.js
+npm run generate -- --pid 61509
 ```
 
-## TODO
-
-* [ ] 节目id、存储地址参数化
+其中，`pid` 是凤凰FM上节目的ID
 
