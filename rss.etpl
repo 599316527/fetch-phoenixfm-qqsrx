@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- var: feed = 'https://hk1229.cn/demo/phoenixtv/podcast/audio/qqsrx.xml' -->
+<!-- var: link = 'http://diantai.ifeng.com/index.php/public/programnavDetails?pid=' -->
+<!-- var: vendor = '凤凰卫视' -->
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
-        <atom:link href="https://hk1229.cn/demo/phoenixtv/podcast/audio/qqsrx.xml" type="application/rss+xml" rel="self" />
+        <atom:link href="${feed}" type="application/rss+xml" rel="self" />
         <copyright>Copyright © ${year} PhoenixFM</copyright>
         <language>zh-cn</language>
-        <link>http://diantai.ifeng.com/index.php/public/programnavDetails?pid=${pfind.pid}</link>
+        <link>${link}${pfind.pid}</link>
         <title>${pfind.pname} 🎉</title>
-        <itunes:keywords>凤凰卫视</itunes:keywords>
-        <itunes:author>Kyle He</itunes:author>
+        <itunes:keywords>${vendor}</itunes:keywords>
+        <itunes:author>${pfind.compere}</itunes:author>
         <itunes:subtitle>${pfind.pname}</itunes:subtitle>
-        <!-- import: summary -->
-            <!-- block: text -->
-            <p>${pfind.info}</p>
-            <!-- /block -->
+
+        <!-- import: description -->
+            <!-- block: text -->${pfind.info}<!-- /block -->
         <!-- /import -->
-        <description>${pfind.info}</description>
+
         <itunes:image href="http://ww4.sinaimg.cn/large/661b7679gw1epg9c07d1rj218g18gwgt.jpg" />
-        <itunes:keywords>凤凰卫视, ${pfind.pname}, ${pfind.compere}</itunes:keywords>
+        <itunes:keywords>${vendor}, ${pfind.pname}, ${pfind.compere}</itunes:keywords>
         <itunes:owner>
             <itunes:name>Kyle He</itunes:name>
             <itunes:email>ohyes@hk1229.cn</itunes:email>
         </itunes:owner>
 
 <!-- for: ${items} as ${item} -->
-    <!-- use: item(rtle=${item.rtle}, rutime=${item.rutime},
+    <!-- use: item(link=${link}, rtle=${item.rtle}, rutime=${item.rutime},
         filepath=${item.filepath}, rdur=${item.rdur}, pid=${item.pid},
         rid=${item.rid}, rnum=${item.rnum}) -->
 <!-- /for -->
@@ -31,32 +33,44 @@
     </channel>
 </rss>
 
-<!-- target: summary -->
-<itunes:summary><![CDATA[
-<!-- block: text --><!-- /block -->
+<!-- target: feedback -->
+<!-- // 反馈 -->
 <p>Feedback 👉
 🌀Weibo: <a href="http://weibo.com/327303000" target="_blank">@_何凯_</a>
 🐦Twitter: <a href="https://twitter.com/kyleehee" target="_blank">@kyleehee</a>
 </p>
+<!-- /target -->
+
+<!-- target: description -->
+<!-- // 描述 -->
+<itunes:summary><![CDATA[
+<p><!-- block: text --><!-- /block --></p>
+<!-- import: feedback -->
 ]]></itunes:summary>
+<description>
+<!-- block: text --><!-- /block -->
+<!-- filter: strip-tags -->
+    <!-- import: feedback -->
+<!-- /filter -->
+</description>
 <!-- /target -->
 
 <!-- target: item -->
+<!-- // 单集 -->
 <item>
     <title>${rtle}</title>
     <itunes:author>Kyle He</itunes:author>
     <itunes:subtitle>${rutime}</itunes:subtitle>
-    <!-- import: summary -->
-        <!-- block: text -->
-        <p>${rutime} ${rtle} （播放${rnum}次）</p>
-        <!-- /block -->
-    <!-- /import -->
     <enclosure url="${filepath}" type="audio/mp3" length=""/>
     <guid>${pid}-${rid}</guid>
     <pubDate>${rutime|utc-date}</pubDate>
     <itunes:duration>${rdur}</itunes:duration>
     <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-    <link>https://hk1229.cn/demo/phoenixtv/</link>
-    <description>${rutime} ${rtle} （播放${rnum}次）</description>
+    <link>${link}${pid}</link>
+    <!-- import: description -->
+        <!-- block: text -->
+        ${rutime} ${rtle} （播放${rnum}次）
+        <!-- /block -->
+    <!-- /import -->
 </item>
 <!-- /target -->

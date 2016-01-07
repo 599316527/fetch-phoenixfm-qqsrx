@@ -73,6 +73,7 @@ function saveRssPageByPid(pid, data) {
         var etpl = require('etpl');
         // yyyy-mm-dd 日期格式转换成 gmt 格式
         etpl.addFilter('utc-date', require('./etpl-filter-utc-date'));
+        etpl.addFilter('strip-tags', require('./etpl-filter-strip-tags'));
         // 配置 etpl
         etpl.config({
             strip: true // 移除两侧空白
