@@ -2,17 +2,21 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
         <atom:link href="https://hk1229.cn/demo/phoenixtv/podcast/audio/qqsrx.xml" type="application/rss+xml" rel="self" />
-        <copyright>Copyright © ${year} 凤凰卫视</copyright>
+        <copyright>Copyright © ${year} PhoenixFM</copyright>
         <language>zh-cn</language>
-        <link>https://hk1229.cn/demo/phoenixtv/</link>
+        <link>http://diantai.ifeng.com/index.php/public/programnavDetails?pid=${pfind.pid}</link>
         <title>${pfind.pname} 🎉</title>
         <itunes:keywords>凤凰卫视</itunes:keywords>
         <itunes:author>Kyle He</itunes:author>
         <itunes:subtitle>${pfind.pname}</itunes:subtitle>
-        <!-- use: summary(text=${pfind.info}) -->
+        <!-- import: summary -->
+            <!-- block: text -->
+            <p>${pfind.info}</p>
+            <!-- /block -->
+        <!-- /import -->
         <description>${pfind.info}</description>
-        <itunes:image href="${pfind.img}" />
-        <itunes:keywords>凤凰卫视 ${pfind.pname} ${pfind.compere}</itunes:keywords>
+        <itunes:image href="http://ww4.sinaimg.cn/large/661b7679gw1epg9c07d1rj218g18gwgt.jpg" />
+        <itunes:keywords>凤凰卫视, ${pfind.pname}, ${pfind.compere}</itunes:keywords>
         <itunes:owner>
             <itunes:name>Kyle He</itunes:name>
             <itunes:email>ohyes@hk1229.cn</itunes:email>
@@ -29,9 +33,7 @@
 
 <!-- target: summary -->
 <itunes:summary><![CDATA[
-<!-- if: ${text} -->
-<p>${text}</p>
-<!-- /if -->
+<!-- block: text --><!-- /block -->
 <p>Feedback 👉
 🌀Weibo: <a href="http://weibo.com/327303000" target="_blank">@_何凯_</a>
 🐦Twitter: <a href="https://twitter.com/kyleehee" target="_blank">@kyleehee</a>
@@ -45,6 +47,10 @@
     <itunes:author>Kyle He</itunes:author>
     <itunes:subtitle>${rutime}</itunes:subtitle>
     <!-- import: summary -->
+        <!-- block: text -->
+        <p>${rutime} ${rtle} （播放${rnum}次）</p>
+        <!-- /block -->
+    <!-- /import -->
     <enclosure url="${filepath}" type="audio/mp3" length=""/>
     <guid>${pid}-${rid}</guid>
     <pubDate>${rutime|utc-date}</pubDate>
