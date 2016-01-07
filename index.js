@@ -8,7 +8,7 @@ var local = require('./local');
 var remote = require('./remote');
 
 var argv = require('optimist')
-    .usage('Usage: $0 --pid [num] --fid [num] --pages [num]')
+    .usage('Usage: npm run generate -- --pid [num]')
     .demand(['pid'])
     .default('pages', 1)
     .default('fid', 1)
@@ -17,6 +17,13 @@ var argv = require('optimist')
     .argv;
 
 
+/**
+ * 根据rid从列表中找出项
+ *
+ * @param  {Number} rid   单集id
+ * @param  {Array} items  列表
+ * @return {Object}
+ */
 function findItemByRid(rid, items) {
     for (var i = items.length - 1; i >= 0; i--) {
         if (items[i].rid === rid) {
@@ -25,6 +32,13 @@ function findItemByRid(rid, items) {
     }
 }
 
+/**
+ * 合并远程列表和本地缓存列表
+ *
+ * @param  {Array} remoteItems 远程列表
+ * @param  {Array} cacheItems  缓存列表
+ * @return {Array}
+ */
 function fillItemsData(remoteItems, cacheItems) {
     return Promise.all(remoteItems.map(function (item) {
         // 先从缓存中读取

@@ -63,6 +63,7 @@ var fakeHeader = {
 };
 
 function getJSON(url) {
+    console.log('Loading ' + url);
     return new Promise(function (resolve, reject) {
         request({
             url: url,
