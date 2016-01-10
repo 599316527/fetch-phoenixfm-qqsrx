@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "generate": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf cache rss"
   },
   "author": "Kyle He",
   "license": "MIT",
   "dependencies": {
+    "deep-extend": "^0.4.0",
     "etpl": "^3.0.1",
     "optimist": "^0.6.1",
     "request": "^2.67.0",

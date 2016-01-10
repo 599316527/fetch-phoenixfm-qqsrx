@@ -8,7 +8,7 @@
         <copyright>Copyright © ${year} PhoenixFM</copyright>
         <language>zh-cn</language>
         <link>${link}${pfind.pid}</link>
-        <title>${pfind.pname} 🎉</title>
+        <title>${pfind.pname}${pfind.titleExt}</title>
         <itunes:keywords>${vendor}</itunes:keywords>
         <itunes:author>${pfind.compere}</itunes:author>
         <itunes:subtitle>${pfind.pname}</itunes:subtitle>
@@ -17,7 +17,7 @@
             <!-- block: text -->${pfind.info}<!-- /block -->
         <!-- /import -->
 
-        <itunes:image href="http://ww4.sinaimg.cn/large/661b7679gw1epg9c07d1rj218g18gwgt.jpg" />
+        <itunes:image href="${pfind.img}" />
         <itunes:keywords>${vendor}, ${pfind.pname}, ${pfind.compere}</itunes:keywords>
         <itunes:owner>
             <itunes:name>Kyle He</itunes:name>

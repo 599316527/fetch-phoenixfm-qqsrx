@@ -3,6 +3,7 @@
  * @author Kyle He (x@hk1229.cn)
  */
 
+var _ = require('underscore');
 var pfs = require('./promise-fs');
 
 /**
@@ -26,9 +27,33 @@ const RSS_SAVE_PATH = './rss';
  */
 const CACHE_PATH = './cache';
 
+/**
+ * 配置路径
+ *
+ * @type {String}
+ */
+const CONFIG_PATH = './config';
 
 function getCacheFilePath(pid) {
     return CACHE_PATH + '/' + pid + '.json';
+}
+
+function getRssFilePath(pid) {
+    return RSS_SAVE_PATH + '/' + pid + '.xml';
+}
+
+function getConfigPath(pid) {
+    return CONFIG_PATH + '/' + pid + '.json';
+}
+
+function readJson(path) {
+    return pfs.isFile(path).then(function () {
+        return pfs.readFile(path);
+    }, function () {
+        throw new Error('No such file: ' + path);
+    }).then(function (content) {
+        return JSON.parse(content);
+    });
 }
 
 /**
@@ -38,11 +63,9 @@ function getCacheFilePath(pid) {
  * @return {Promise}
  */
 function readCacheByPid(pid) {
-    var cacheFilePath = getCacheFilePath(pid);
-    return pfs.isFile(cacheFilePath).then(function () {
-        // 偷懒用 require 来加载 #^_^#
-        return require(cacheFilePath);
-    }, function () {
+    return readJson(getCacheFilePath(pid)).then(function (json) {
+        return json;
+    }).catch(function () {
         return {
             pfind: {},
             items: []
@@ -50,9 +73,19 @@ function readCacheByPid(pid) {
     });
 }
 
-function getRssFilePath(pid) {
-    return RSS_SAVE_PATH + '/' + pid + '.xml';
+function readConfigByPid(pid) {
+    return readJson(getConfigPath(pid)).then(function (json) {
+        return json;
+    }).catch(function (err) {
+        if (err instanceof SyntaxError) {
+            throw err;
+        }
+        else {
+            return {};
+        }
+    });
 }
+
 
 /**
  * 写rss文件
@@ -71,9 +104,10 @@ function saveRssPageByPid(pid, data) {
     }).then(function (tpl) {
         // 渲染 rss 模板
         var etpl = require('etpl');
-        // yyyy-mm-dd 日期格式转换成 gmt 格式
-        etpl.addFilter('utc-date', require('./etpl-filter-utc-date'));
-        etpl.addFilter('strip-tags', require('./etpl-filter-strip-tags'));
+        // 加filter
+        _.each(require('./etpl-filters'), function (filter, key) {
+            etpl.addFilter(key, filter);
+        });
         // 配置 etpl
         etpl.config({
             strip: true // 移除两侧空白
@@ -107,5 +141,6 @@ function saveCacheByPid(pid, cacheData) {
 exports.saveRssPageByPid = saveRssPageByPid;
 exports.readCacheByPid = readCacheByPid;
 exports.saveCacheByPid = saveCacheByPid;
+exports.readConfigByPid = readConfigByPid;
 
 

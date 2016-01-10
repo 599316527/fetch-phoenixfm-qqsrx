@@ -4,6 +4,7 @@
  */
 
 var _ = require('underscore');
+var deepExtend = require('deep-extend');
 var local = require('./local');
 var remote = require('./remote');
 
@@ -72,6 +73,12 @@ Promise.all([
     return fillItemsData(data[0].items, data[1].items).then(function (items) {
         data[0].items = items;
         return data[0];
+    });
+}).then(function (data) {
+    // 合并config
+    return local.readConfigByPid(argv.pid).then(function (config) {
+        deepExtend(data, config);
+        return data;
     });
 }).then(function (data) {
     // 保存缓存、rss文件
