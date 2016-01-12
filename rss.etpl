@@ -27,7 +27,7 @@
 <!-- for: ${items} as ${item} -->
     <!-- use: item(link=${link}, rtle=${item.rtle}, rutime=${item.rutime},
         filepath=${item.filepath}, rdur=${item.rdur}, pid=${item.pid},
-        rid=${item.rid}, rnum=${item.rnum}) -->
+        rid=${item.rid}, rnum=${item.rnum}, img=${item.img}) -->
 <!-- /for -->
 
     </channel>
@@ -61,6 +61,7 @@
     <title>${rtle}</title>
     <itunes:author>Kyle He</itunes:author>
     <itunes:subtitle>${rutime}</itunes:subtitle>
+    <itunes:image href="${img}" />
     <enclosure url="${filepath}" type="audio/mp3" length=""/>
     <guid>${pid}-${rid}</guid>
     <pubDate>${rutime|utc-date}</pubDate>
